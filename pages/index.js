@@ -1,11 +1,11 @@
 import { useState } from "react";
-import NavBar from "../components/Navbar";
+import NavBar from "@/components/NavBar";
 
 export default function Home() {
   return (
     <div>
       <NavBar />
-      <h1>홈페이지로 가기</h1>
+      <h1>짠</h1>
     </div>
   );
 }
