@@ -1,7 +1,10 @@
+import Seo from "@/components/Seo";
+
 export default function Lunch() {
   return (
     <div>
-      <h1>Test About</h1>
+      <Seo title="About" />
+      <h1>About</h1>
     </div>
   );
 }
