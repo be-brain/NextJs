@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../components/NavBar.module.css";
 
 export default function NavBar() {
   const router = useRouter();
@@ -8,26 +7,28 @@ export default function NavBar() {
   return (
     <nav>
       <Link legacyBehavior href="/">
-        {/* 문자열백틱은 왜 안먹을까? */}
-        <a
-          className={`${styles.link}${
-            router.pathname === "/" ? styles.active : ""
-          }`}
-        >
-          Home
-        </a>
+        <a className={router.pathname === "/" ? "active" : ""}>Home</a>
       </Link>
       <Link legacyBehavior href="/about">
-        <a
-          className={[
-            styles.link,
-            router.pathname === "/about" ? styles.active : "",
-          ].join(" ")}
-        >
-          About
-        </a>
-        {/* join()은 배열을 한 문자열로 만든다 ()안의 인자는 문자열을 구분할 때 들어갈 인자 */}
+        <a className={router.pathname === "/about" ? "active" : ""}>About</a>
       </Link>
+      {/* style태그는 Next, React가 아닌 js태그 */}
+      {/* 왜 color는 안먹을까? → className형식으로 쓰니까 잘먹힘*/}
+      {/* active는 NavBar.js컴포넌트 내부에서만 동작한다(index.js나 다른 파일에서 똑같이 써도 적용안됨) */}
+      <style jsx>
+        {`
+          // nav {
+          //   background-color: blue;
+          //   color: white;
+          // }
+          a {
+            text-decoration: none;
+          }
+          .active {
+            color: yellow;
+          }
+        `}
+      </style>
     </nav>
   );
 }
