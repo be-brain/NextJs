@@ -1,15 +1,41 @@
 import Seo from "@/components/Seo";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home({ results }) {
+  // img클릭시 detail page로 이동하기 위해 router사용
+  const router = useRouter();
+
+  const goToDetail = (id, title) => {
+    router.push(`/movies/${title}/${id}`);
+    // router.push(
+    //   { pathname: `/movies/${id}`, query: { title } },
+    //   `/movies/${id}`
+    // );
+    //                ↓
+    // {pathname : ~} = url을 설정하고 정보를 보여주는 부분
+    // `/movies/${id}` = url에 보이는 부분을 masking(숨기기)하는 부분
+  };
+
   return (
     <div className="container">
       <Seo title="Home" />
       {/* {}를 쓸때는 return을 꼭 써줍시다 */}
       {results?.map((movie) => {
         return (
-          <div key={movie.id} className="movie">
+          <div
+            onClick={() => goToDetail(movie.id, movie.original_title)}
+            key={movie.id}
+            className="movie"
+          >
             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-            <h4>{movie.original_title}</h4>
+            <Link
+              legacyBehavior
+              href={`/movies/${movie.original_title}/${movie.id}`}
+            >
+              <a>{movie.original_title}</a>
+            </Link>
+            {/* Link태그안에는 div태그를 쓰면안좋다 */}
           </div>
         );
       })}
